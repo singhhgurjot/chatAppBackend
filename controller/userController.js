@@ -48,15 +48,20 @@ class userController {
         .then((data) => {
           if (data) {
             if (password == data.password) {
+              console.log("Yes");
               const token = jwt.sign(
                 { userId: data._id },
                 process.env.JWT_SECRET,
-                { expiresIn: "24h" }
+                {
+                  expiresIn: "24h",
+                }
               );
+
               return res.status(200).json({
                 message: "Login Successfull!",
                 success: true,
                 token: token,
+                userId: data._id,
               });
             } else {
               return res
@@ -71,6 +76,11 @@ class userController {
         })
         .catch((err) => {});
     }
+  };
+  static test = (req, res) => {
+    console.log(req.params.name);
+    console.log(req.params.age);
+    return res.send("Hii");
   };
 }
 module.exports = userController;

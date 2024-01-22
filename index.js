@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const LocalStrategy = require("passport-local").Strategy;
 const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/userRoutes.js");
+const homePageRouter = require("./routes/homePageRoutes.js");
+
 const app = express();
 
 app.use(cors());
@@ -27,3 +29,4 @@ mongoose
     console.log(err);
   });
 app.use(userRoutes);
+app.use(homePageRouter);
