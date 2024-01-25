@@ -84,5 +84,59 @@ class homePageController {
       return res.status(500).json({ message: "Invalid User" });
     }
   };
+  static acceptFriendRequest = async (req, res) => {
+    const { currentUserId, recepientUserId } = req.body;
+    if (!currentUserId || !recepientUserId) {
+      return res.status(500).json({ message: "Invalid User" });
+    }
+    if (currentUserId === recepientUserId) {
+      return res.status(500).json({ message: "Invalid User" });
+    }
+    await User.findByIdAndUpdate(currentUserId, {
+      $pull: { friendRequests: recepientUserId },
+      $push: { friends: recepientUserId },
+    })
+      .then((data, err) => {
+        if (data) {
+          console.log(data);
+        }
+        if (err) {
+          console.log(err);
+        }
+      })
+      .catch((err) => {
+        return res.status(500).json({ message: "Internal Server Error" });
+      });
+    await User.findByIdAndUpdate(recepientUserId, {
+      $pull: { sentFriendRequests: currentUserId },
+      $push: { friends: currentUserId },
+    })
+      .then((data, err) => {
+        if (data) {
+          console.log(data);
+        }
+        if (err) {
+          console.log(err);
+        }
+      })
+      .catch((err) => {
+        return res.status(500).json({ message: "Internal Server Error" });
+      });
+    return res.status(200).json({ message: "Accepted Successfully" });
+  };
+  static getAllFriends = async (req, res) => {
+    const userId = req.params.userId;
+    try {
+      const friends = await User.findById(userId).populate(
+        "friends",
+        "name email image"
+      );
+      const allFriends = friends.friends;
+      return res.status(200).json({ friends: allFriends, success: true });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Internal Sever Error" });
+    }
+  };
 }
 module.exports = homePageController;

@@ -8,4 +8,9 @@ homePageRouter.get(
   "/viewFriendRequests/:userId",
   homePageController.viewFriendRequests
 );
+homePageRouter.post(
+  "/acceptFriendRequest",
+  homePageController.acceptFriendRequest
+);
+homePageRouter.get("/getAllFriends/:userId", homePageController.getAllFriends);
 module.exports = homePageRouter;
