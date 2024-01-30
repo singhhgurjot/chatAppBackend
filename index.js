@@ -7,6 +7,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/userRoutes.js");
 const homePageRouter = require("./routes/homePageRoutes.js");
+const messageRouter = require("./routes/messageRouter.js");
 
 const app = express();
 
@@ -30,3 +31,4 @@ mongoose
   });
 app.use(userRoutes);
 app.use(homePageRouter);
+app.use(messageRouter);

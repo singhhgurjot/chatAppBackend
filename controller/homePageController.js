@@ -86,6 +86,7 @@ class homePageController {
   };
   static acceptFriendRequest = async (req, res) => {
     const { currentUserId, recepientUserId } = req.body;
+    console.log(currentUserId, "  ", recepientUserId);
     if (!currentUserId || !recepientUserId) {
       return res.status(500).json({ message: "Invalid User" });
     }
