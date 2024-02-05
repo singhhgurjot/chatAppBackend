@@ -67,6 +67,7 @@ class homePageController {
       .json({ message: "Friend Request taken back", success: true });
   };
   static viewFriendRequests = async (req, res) => {
+    console.log("in view friend requests");
     const userId = req.params.userId;
     if (!userId) {
       return res.status(500).json({ message: "Invalid User" });
@@ -76,6 +77,7 @@ class homePageController {
         .populate("friendRequests", "name email image")
         .lean();
       const friendRequests = user.friendRequests;
+      console.log(friendRequests);
       return res
         .status(200)
         .json({ friendRequests: friendRequests, message: "Friend Requests" });
