@@ -8,7 +8,8 @@ const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/userRoutes.js");
 const homePageRouter = require("./routes/homePageRoutes.js");
 const messageRouter = require("./routes/messageRouter.js");
-
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 
 app.use(cors());
@@ -20,9 +21,7 @@ app.listen(PORT, () => {
   console.log("Listening to PORT:-" + PORT);
 });
 mongoose
-  .connect(
-    "mongodb+srv://GurjotSingh:harry499@cluster0.bqsptqv.mongodb.net/chatApp"
-  ) //dotenv
+  .connect(process.env.MONGO_URL) //dotenv
   .then((db) => {
     console.log("Connected to the Database Successfully");
   })
