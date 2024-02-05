@@ -8,11 +8,11 @@ const messageSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  messageTypes: {
+  messageType: {
     type: String,
     enum: ["text", "image"],
   },
-  message: String,
+  messageText: String,
   imageUrl: String,
   timeStamp: {
     type: String,

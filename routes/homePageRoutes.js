@@ -13,4 +13,8 @@ homePageRouter.post(
   homePageController.acceptFriendRequest
 );
 homePageRouter.get("/getAllFriends/:userId", homePageController.getAllFriends);
+homePageRouter.get(
+  "/getSentRequests/:userId",
+  homePageController.getSentRequests
+);
 module.exports = homePageRouter;

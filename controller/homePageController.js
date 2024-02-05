@@ -139,5 +139,22 @@ class homePageController {
       return res.status(500).json({ message: "Internal Sever Error" });
     }
   };
+  static getSentRequests = async (req, res) => {
+    console.log("hi");
+    const userId = req.params.userId;
+    try {
+      const sentRequests = await User.findById(userId).populate(
+        "sentFriendRequests",
+        "name email image"
+      );
+      const allSentRequests = sentRequests.sentFriendRequests;
+      return res
+        .status(200)
+        .json({ sentRequests: allSentRequests, success: true });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Internal Sever Error" });
+    }
+  };
 }
 module.exports = homePageController;
